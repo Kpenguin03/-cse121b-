@@ -1,10 +1,11 @@
 const textElement = document.getElementById('text')
 const optionButtonsElement = document.getElementById('option-buttons')
 
-
-let itemsOwned = {}
+let state = [] // this is my array
+//let itemsOwned = {}
 
 function startGame() {
+    state = []
     showTextNode(1)
 }
 
@@ -15,17 +16,16 @@ function showTextNode(textNodeIndex) {
         optionButtonsElement.removeChild(optionButtonsElement.firstChild)
     }
 
-    textNode.options.forEach(option => {
+    textNode.options.forEach(option => { // this is my array method
         if (showOption(option)) {
             const button = document.createElement('button')
             button.innerText = option.text //My buttons should show the correct text
             button.classList.add('btn')
-            button.addEventListener('click', () => selectOption(option))
+            button.addEventListener('click', () => selectOption(option)) //This is my DOM interaction
             optionButtonsElement.appendChild(button)
         }
     })
 }
-
 
 function showOption(option) {
     return option.requiredState == null || option.requiredState(state)
@@ -44,6 +44,7 @@ const textNodes = [
         options: [
             {
                 text: 'go off to colledge',
+                setState: {education: true },
                 nextText: 2
             },
             {
@@ -54,7 +55,7 @@ const textNodes = [
     },
     {
         id: 2,
-        text: "Colledge turns out to be really expensive. You could get a part time job or wait till you graduate to pay for your schooling.",
+        text: ( state + "College turns out to be really expensive. You could get a part time job or wait till you graduate to pay for your schooling"),
         options: [
             {
                 text: 'Work part time',
@@ -68,7 +69,7 @@ const textNodes = [
     },
     {
         id: 3,
-        text: "You survive basic trainging only to learn that bears from anouther planet are invading Earth and all memebrs of the military are required to engadge in space combat to push back the space bears.",
+        text: "You survive basic training only to learn that bears from another planet are invading Earth and all members of the military are required to engage in space combat to push back the space bears.",
         options: [
             {
                 text: 'Go to space',
@@ -89,14 +90,14 @@ const textNodes = [
                 nextText: 8
             },
             {
-                text: 'Nevermind I am joinnig the military',
+                text: 'Never mind I am joining the military',
                 nextText: 3
             },
         ]
     },
     {
         id: 5,
-        text: "You finally graduate but now how a mountain to pay off in student loans. Luckily becasue you studied so hard you were able to get your dream job",
+        text: "You finally graduate but now how a mountain to pay off in student loans. Luckily because you studied so hard you were able to get your dream job",
         options: [
             {
                 text: 'Click to Restart',
@@ -106,7 +107,7 @@ const textNodes = [
     },
     {
         id: 6,
-        text: "In space you discover you happen to be the best piolet and end up becomeing a world hero for using your dog fighting skills to win the war against the bears",
+        text: "In space you discover you happen to be the best piolet and end up becoming a world hero for using your dog fighting skills to win the war against the bears",
         options: [
             {
                 text: 'Consider this a happy ending',
@@ -154,7 +155,7 @@ const textNodes = [
     },
     {
         id: 10,
-        text: "You conquer the universe sucsesfully. Everyone fears you, The end",
+        text: "You conquer the universe successfully. Everyone fears you, The end",
         options: [
             {
                 text: 'Click to Restart',
@@ -162,6 +163,8 @@ const textNodes = [
             },
         ]
     },
+
 ]
 
 startGame()
+
